@@ -45,8 +45,9 @@
             <input id="in-raw" class="border border-gray-300 p-2 rounded w-full" 
                 value="0x02010617FF0001B50002381EACC4000000120610A1DE011000000003033CFE">
         </div>
-        <div class="mb-4">
+        <div class="mb-4 flex gap-2">
             <button onclick="btClick()" class="bg-blue-500 text-white p-2 rounded hover:bg-blue-600 transition-all">生成</button>
+            <button onclick="removeSpaces()" class="bg-gray-500 text-white p-2 rounded hover:bg-gray-600 transition-all">一键清除空格</button>
         </div> 
         <div>
             <div class="flex mb-2 items-center">
@@ -69,6 +70,22 @@
     <div id="copy-toast">复制成功</div>
 
     <script>
+        // 新增：清除RAW数据中的空格
+        function removeSpaces() {
+            const rawInput = document.getElementById('in-raw');
+            const currentValue = rawInput.value;
+            const newValue = currentValue.replace(/\s/g, '');
+            rawInput.value = newValue;
+            
+            // 显示提示
+            const toast = document.getElementById('copy-toast');
+            toast.textContent = '空格已清除';
+            toast.style.opacity = 1;
+            setTimeout(() => {
+                toast.style.opacity = 0;
+            }, 2000);
+        }
+
         function isValidMac(mac) {
             return mac.length === 12 && /^[0-9a-fA-F]*$/.test(mac);
         }
@@ -155,6 +172,7 @@
             var text = document.getElementById(id).innerText;
             navigator.clipboard.writeText(text).then(function() {
                 var toast = document.getElementById('copy-toast');
+                toast.textContent = '复制成功';
                 toast.style.opacity = 1;
                 setTimeout(function() {
                     toast.style.opacity = 0;
@@ -165,4 +183,4 @@
         }
     </script>
 </body>
-</html>    
+</html>
