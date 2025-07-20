@@ -70,16 +70,17 @@
     <div id="copy-toast">复制成功</div>
 
     <script>
-        // 新增：清除RAW数据中的空格
+        // 清除RAW数据中的空格，并将字母O替换为数字0
         function removeSpaces() {
             const rawInput = document.getElementById('in-raw');
             const currentValue = rawInput.value;
-            const newValue = currentValue.replace(/\s/g, '');
+            // 先清除所有空格，再将所有大写O替换为0
+            const newValue = currentValue.replace(/\s/g, '').replace(/O/g, '0');
             rawInput.value = newValue;
             
             // 显示提示
             const toast = document.getElementById('copy-toast');
-            toast.textContent = '空格已清除';
+            toast.textContent = '空格已清除，O已替换为0';
             toast.style.opacity = 1;
             setTimeout(() => {
                 toast.style.opacity = 0;
